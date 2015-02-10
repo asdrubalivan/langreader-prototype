@@ -5,9 +5,11 @@ use yii\db\Migration;
 
 class m150210_215420_create_language_table extends Migration
 {
+    public $userForeignKey = "fk_language_user";
+    public $myTable = "{{%language}}";
     public function up()
     {
-        $this->createTable("{%language}",[
+        $this->createTable($this->myTable,[
             "id" => "pk",
             "name" => "varchar(64)",
             "regexp_split_sentences" => "varchar(500)",
@@ -20,10 +22,13 @@ class m150210_215420_create_language_table extends Migration
             "created_at" => "timestamp",
             "updated_at" => "timestamp",
         ]);
+        $this->addForeignKey($this->userForeignKey,$this->myTable,
+            'user_id',"{{%user}}","id","CASCADE","CASCADE");
     }
 
     public function down()
     {
-        $this->dropTable("{%language}");
+        $this->dropForeignKey($this->userForeignKey,$this->myTable);
+        $this->dropTable($this->myTable);
     }
 }
