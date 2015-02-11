@@ -1,4 +1,4 @@
-echo "What do you want to do"
+echo "What do you want to do?"
 select yn in "Migrate Up" "Migrate Down" "Exit"; do
     case $yn in
         "Migrate Up" ) 
